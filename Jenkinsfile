@@ -44,7 +44,7 @@ pipeline {
         chmod u+x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
         echo "moved ./kubectl to /usr/local/bin/kubectl"
-        kubectl apply -f nginx-statefulset.yaml
+        kubectl apply -f statefulset.yaml
         '''
       }
     }
