@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment{
+             DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+         }
 
   stages {
     stage('Build') {
@@ -8,12 +11,14 @@ pipeline {
         echo '******************* START TESTING *********************'
         sudo su - jenkins
         sudo apt-get update
-         echo "installing Docker"
-         sudo apt-get install docker.io -y
-         echo "adding jenkins user to docker group"
-         sudo groupadd docker
-         sudo usermod -aG docker $USER
-         newgrp docker
+        echo "installing Docker"
+        sudo apt-get install docker.io -y
+        echo "adding jenkins user to docker group"
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        newgrp docker
+        echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+        docker login
         docker build -t tanveermeman/mainline.nginx.1.19.10.alpine:$BUILD_NUMBER .
         '''
         // Build the Docker image
