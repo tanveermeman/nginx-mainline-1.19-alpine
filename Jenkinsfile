@@ -17,6 +17,8 @@ pipeline {
         sudo groupadd docker
         sudo usermod -aG docker $USER
         newgrp docker
+        echo $DOCKERHUB_CREDENTIALS_USR
+        echo $DOCKERHUB_CREDENTIALS_PSW
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
         docker login
         docker build -t tanveermeman/mainline.nginx.1.19.10.alpine:$BUILD_NUMBER .
