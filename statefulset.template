@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: tanveermeman/mainline.nginx:1.19.10.alpine
+        image: tanveermeman/mainline.nginx.1.19.10.alpine:BUILD_NUMBER
         ports:
         - containerPort: 80
           name: web
