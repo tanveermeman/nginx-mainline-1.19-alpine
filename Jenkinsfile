@@ -17,11 +17,10 @@ pipeline {
         sudo groupadd docker
         sudo usermod -aG docker $USER
         newgrp docker
-        echo $DOCKERHUB_CREDENTIALS_USR
-        echo $DOCKERHUB_CREDENTIALS_PSW
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
         docker login
         docker build -t tanveermeman/mainline.nginx.1.19.10.alpine:$BUILD_NUMBER .
+        docker scan tanveermeman/mainline.nginx.1.19.10.alpine:$BUILD_NUMBER
         '''
         // Build the Docker image
         //sh 'docker build -t tanveermeman/mainline.nginx.1.19.10.alpine:$BUILD_NUMBER .'
@@ -44,7 +43,6 @@ pipeline {
         chmod u+x ./kubectl
         sudo mv ./kubectl /usr/local/bin/kubectl
         echo "moved ./kubectl to /usr/local/bin/kubectl"
-        kubectl --help
         # copy the template app deployment
         rm -rf ./statefulset.yaml
         cp statefulset.template statefulset.yaml
