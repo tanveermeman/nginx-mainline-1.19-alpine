@@ -50,6 +50,7 @@ pipeline {
         cp statefulset.template statefulset.yaml
         # replace the build number in the template with actual build number
         sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" statefulset.yaml
+        cat statefulset.yaml
         kubectl apply -f statefulset.yaml
 
         kubectl get pods
