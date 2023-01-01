@@ -47,9 +47,9 @@ pipeline {
         kubectl --help
         # copy the template app deployment
         rm -rf ./statefulset.yaml
-        cp ./statefulset.yaml.template ./statefulset.yaml.yml
+        cp statefulset.template statefulset.yaml
         # replace the build number in the template with actual build number
-        sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" ./statefulset.yaml.yml
+        sed -i "s/BUILD_NUMBER/$BUILD_NUMBER/g" statefulset.yaml
         kubectl apply -f statefulset.yaml
 
         kubectl get pods
